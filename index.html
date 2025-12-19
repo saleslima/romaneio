@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Militar CRUD</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+        {
+          "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js",
+            "firebase/database": "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js"
+          }
+        }
+    </script>
+</head>
+<body>
+    <div class="header-container">
+        <img src="/LOGO.PNG" alt="Logo" class="logo">
+        <h1>Cadastro de Militares</h1>
+        <button id="dark-mode-toggle" class="dark-mode-btn" title="Alternar modo escuro">🌙</button>
+    </div>
+
+    <div class="form-container">
+        <h2>Adicionar/Editar Militar</h2>
+        <form id="military-form">
+            <input type="hidden" id="key" value="">
+
+            <label for="posto_gd">Posto/GD:</label>
+            <select id="posto_gd" required>
+                <option value="" disabled selected>Selecione o Posto/GD</option>
+                <option value="Cel PM">Cel PM</option>
+                <option value="Ten Cel PM">Ten Cel PM</option>
+                <option value="Maj PM">Maj PM</option>
+                <option value="Cap PM">Cap PM</option>
+                <option value="1º Ten PM">1º Ten PM</option>
+                <option value="2º Ten PM">2º Ten PM</option>
+                <option value="Asp Of PM">Asp Of PM</option>
+                <option value="Subten PM">Subten PM</option>
+                <option value="1º Sgt PM">1º Sgt PM</option>
+                <option value="2º Sgt PM">2º Sgt PM</option>
+                <option value="3º Sgt PM">3º Sgt PM</option>
+                <option value="Al Sgt PM">Al Sgt PM</option>
+                <option value="Cb PM">Cb PM</option>
+                <option value="Sd PM 1cl">Sd PM 1cl</option>
+                <option value="Sd PM 2cl">Sd PM 2cl</option>
+            </select>
+
+            <label for="re">RE (6 dígitos):</label>
+            <!-- Pattern for exactly 6 digits -->
+            <input type="text" id="re" inputmode="numeric" pattern="\d{6}" maxlength="6" required placeholder="Apenas 6 números">
+
+            <label for="nome_guerra">Nome Guerra:</label>
+            <input type="text" id="nome_guerra" required placeholder="Ex: Silva">
+
+            <label for="opm">OPM:</label>
+            <!-- Default value is Copom SP -->
+            <input type="text" id="opm" value="Copom SP" required>
+
+            <label for="sexo">Sexo:</label>
+            <select id="sexo" required>
+                <option value="" disabled selected>Selecione o Sexo</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+            </select>
+
+            <button type="submit" id="submit-btn">Salvar</button>
+            <button type="button" id="cancel-btn" style="display: none;">Cancelar Edição</button>
+        </form>
+    </div>
+
+    <div class="list-container">
+        <h2>Militares Cadastrados</h2>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Pesquisar por RE, Posto ou Nome Guerra">
+            <button id="report-btn" class="report-btn">📊 Relatório de Romaneio</button>
+            <button id="pdf-btn" class="report-btn">📄 Relatório PDF</button>
+        </div>
+        <ul id="military-list">
+            <li class="loading">Carregando dados...</li>
+        </ul>
+    </div>
+
+    <!-- Romaneio Modal -->
+    <div id="romaneio-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Romaneio - <span id="modal-name"></span></h2>
+            <form id="romaneio-form">
+                <input type="hidden" id="romaneio-key" value="">
+
+                <label for="camisa">Camisa Operacional:</label>
+                <select id="camisa" required>
+                    <option value="">Selecione</option>
+                </select>
+
+                <label for="calca">Calça Operacional:</label>
+                <select id="calca" required>
+                    <option value="">Selecione</option>
+                </select>
+
+                <label for="camiseta">Camiseta Cinza:</label>
+                <select id="camiseta" required>
+                    <option value="">Selecione</option>
+                    <option value="PP">PP</option>
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                    <option value="XG">XG</option>
+                    <option value="XGG">XGG</option>
+                </select>
+
+                <label for="jaqueta">Jaqueta Operacional:</label>
+                <select id="jaqueta" required>
+                    <option value="">Selecione</option>
+                </select>
+
+                <label for="coturno">Coturno:</label>
+                <select id="coturno" required>
+                    <option value="">Selecione</option>
+                </select>
+
+                <label for="boina">Boina:</label>
+                <select id="boina" required>
+                    <option value="">Selecione</option>
+                </select>
+
+                <label for="distintivo">Distintivo Boina:</label>
+                <select id="distintivo" required>
+                    <option value="">Selecione</option>
+                    <option value="Oficial">Oficial</option>
+                    <option value="Sub/Sgt">Sub/Sgt</option>
+                    <option value="Cb/Sd">Cb/Sd</option>
+                </select>
+
+                <label for="cinto">Cinto Lona:</label>
+                <select id="cinto" required>
+                    <option value="">Selecione</option>
+                    <option value="1.20">1.20</option>
+                    <option value="1.40">1.40</option>
+                    <option value="1.60">1.60</option>
+                </select>
+
+                <button type="submit" class="save-romaneio-btn">Salvar Romaneio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div id="report-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Relatório de Romaneio</h2>
+            <div id="report-content">
+                <p class="loading">Carregando relatório...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Options Modal -->
+    <div id="pdf-options-modal" class="modal">
+        <div class="modal-content pdf-options-content">
+            <span class="close">&times;</span>
+            <h2>Selecione o Tipo de Relatório PDF</h2>
+            <div class="pdf-options">
+                <button id="pdf-normal-btn" class="pdf-option-btn">
+                    📊 Normal<br>
+                    <small>Totais por tamanho</small>
+                </button>
+                <button id="pdf-detailed-btn" class="pdf-option-btn">
+                    📋 Detalhado<br>
+                    <small>Lista individual</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+    
+    <footer class="footer">
+        <div class="footer-text">
+            desenvolvido setor de tecnologia Cap PM JORGE, Sgt PM ALAN , Cb PM SALES LIMA, Cb PM PIVARO
+        </div>
+    </footer>
+</body>
+</html>
+

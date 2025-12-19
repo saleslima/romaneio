@@ -1,0 +1,526 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #e9ecef;
+    --text-color: #333;
+    --text-secondary: #666;
+    font-family: Arial, sans-serif;
+}
+
+body.dark-mode {
+    --primary-color: #4a9eff;
+    --secondary-color: #a0a0a0;
+    --success-color: #40c057;
+    --danger-color: #fa5252;
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --border-color: #404040;
+    --text-color: #e0e0e0;
+    --text-secondary: #b0b0b0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.dark-mode-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dark-mode-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+h2 {
+    font-size: 1.2em;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.search-container {
+    margin-bottom: 15px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.form-container, .list-container {
+    padding: 15px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#military-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+#military-form input[type="text"],
+#military-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+#military-form button {
+    margin-top: 15px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    width: 48%;
+    transition: background-color 0.2s;
+}
+
+#military-form button[type="submit"] {
+    background-color: var(--success-color);
+    color: white;
+}
+
+#cancel-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    margin-left: 4%;
+}
+
+/* List Styling */
+#military-list {
+    list-style: none;
+    padding: 0;
+}
+
+#military-list li {
+    background: var(--bg-color);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    font-size: 0.9em;
+}
+
+body.dark-mode #military-list li {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.military-details {
+    flex-grow: 1;
+    overflow: hidden;
+    padding-right: 10px;
+}
+
+.military-details p {
+    margin: 3px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.military-details strong {
+    min-width: 80px;
+    display: inline-block;
+}
+
+.military-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.military-actions button {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75em;
+    font-weight: bold;
+    min-width: 60px;
+}
+
+.edit-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.loading {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+body.dark-mode .modal {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
+#romaneio-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+#romaneio-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.save-romaneio-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: var(--success-color);
+    color: white;
+}
+
+.report-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#pdf-btn {
+    background-color: #e74c3c;
+}
+
+.romaneio-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.military-actions button {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75em;
+    font-weight: bold;
+    min-width: 60px;
+}
+
+#report-content {
+    margin-top: 15px;
+}
+
+.report-section {
+    margin-bottom: 20px;
+}
+
+.report-section h3 {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.report-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.report-item:last-child {
+    border-bottom: none;
+}
+
+.romaneio-status {
+    font-size: 0.7em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background-color: var(--success-color);
+    color: white;
+    margin-left: 5px;
+}
+
+.pdf-options-content {
+    max-width: 400px;
+}
+
+.pdf-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.pdf-option-btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--primary-color);
+    transition: all 0.2s;
+}
+
+.pdf-option-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.pdf-option-btn small {
+    display: block;
+    margin-top: 5px;
+    font-weight: normal;
+    font-size: 0.8em;
+}
+
+@media (max-width: 600px) {
+    .pdf-options {
+        flex-direction: column;
+    }
+    
+    .pdf-option-btn {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+/* Mobile specific layout adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 5px;
+        padding-bottom: 50px;
+    }
+    
+    .logo {
+        height: 35px;
+    }
+    
+    .dark-mode-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
+    }
+    
+    h1 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+    
+    h2 {
+        font-size: 1em;
+    }
+    
+    .form-container, .list-container {
+        padding: 10px;
+    }
+    
+    #military-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 0.85em;
+    }
+    
+    .military-details p {
+        margin: 2px 0;
+        font-size: 0.9em;
+    }
+    
+    .military-details strong {
+        min-width: 70px;
+    }
+    
+    .military-actions {
+        flex-direction: row;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-end;
+        gap: 5px;
+    }
+    
+    .military-actions button {
+        padding: 6px 8px;
+        font-size: 0.7em;
+        min-width: 55px;
+    }
+    
+    #military-form button {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-top: 8px;
+    }
+    
+    #submit-btn {
+        margin-top: 15px;
+    }
+    
+    .modal-content {
+        margin: 2% auto;
+        width: 95%;
+        max-height: 90vh;
+        padding: 15px;
+    }
+    
+    .report-btn {
+        font-size: 0.85em;
+        padding: 8px;
+    }
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 0;
+    overflow: hidden;
+    z-index: 999;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer-text {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-left 20s linear infinite;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
